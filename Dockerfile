@@ -1,11 +1,11 @@
 # Inspired from : https://github.com/LiveOverflow/pwn_docker_example
 # docker build -t ctf:ubuntu20.04 .
 # If using Windows (CMD)
-#   docker run --rm -v %cd%:/pwd --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -d --name ctf -i ctf:ubuntu19.10
+#   docker run --rm -v %cd%:/pwd --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -d --name ctf -i ctf:ubuntu20.04
 # If using Windows (Powershell)
-#   docker run --rm -v ${PWD}:/pwd --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -d --name ctf -i ctf:ubuntu19.10
+#   docker run --rm -v ${PWD}:/pwd --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -d --name ctf -i ctf:ubuntu20.04
 # If using Linux    
-#   docker run --rm -v $PWD:/pwd --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -d --name ctf -i ctf:ubuntu19.10
+#   docker run --rm -v $PWD:/pwd --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -d --name ctf -i ctf:ubuntu20.04
 # docker exec -it ctf /bin/bash
 
 FROM ubuntu:20.04
@@ -24,8 +24,8 @@ RUN mkdir /tools
 RUN git clone https://github.com/JonathanSalwan/ROPgadget /tools/ROPgadget
 RUN git clone https://github.com/radare/radare2 /tools/radare2
 RUN cd /tools/radare2 && sys/install.sh
-RUN git clone https://github.com/longld/peda.git /tools/peda
-RUN echo "source /tools/peda/peda.py" >> ~/.gdbinit
-RUN git clone https://github.com/niklasb/libc-database /tools/libc-database
+RUN git clone https://github.com/pwndbg/pwndbg.git /tools/pwndbg
+RUN cd /tools/pwndbg && ./setup.sh --with-python=$(which python3)
 RUN gem install one_gadget
-# RUN cd /tools/libc-database && ./get ubuntu
+RUN git clone https://github.com/niklasb/libc-database /tools/libc-database
+RUN cd /tools/libc-database && ./get ubuntu
