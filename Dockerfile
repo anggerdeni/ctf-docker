@@ -34,7 +34,7 @@ RUN cd /tools/radare2 && sys/install.sh
 RUN git clone https://github.com/pwndbg/pwndbg.git /tools/pwndbg
 RUN cd /tools/pwndbg && ./setup.sh --with-python=$(which python3)
 RUN gem install one_gadget
-# RUN git clone https://github.com/niklasb/libc-database /tools/libc-database
-# RUN cd /tools/libc-database && ./get ubuntu
+RUN git clone https://github.com/niklasb/libc-database /tools/libc-database
+RUN cd /tools/libc-database && ./get ubuntu
 
 WORKDIR /pwd
